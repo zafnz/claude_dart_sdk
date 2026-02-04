@@ -3,7 +3,7 @@
 /// This library provides a native Dart/Flutter interface to the Claude CLI,
 /// communicating directly via stdin/stdout JSON lines using the stream-json
 /// protocol.
-library claude_sdk;
+library claude_agent;
 
 // Backend abstraction interface
 export 'src/backend_interface.dart';

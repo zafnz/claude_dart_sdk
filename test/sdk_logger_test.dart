@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:claude_sdk/src/sdk_logger.dart';
+import 'package:claude_agent/src/sdk_logger.dart';
 import 'package:test/test.dart';
 
 void main() {

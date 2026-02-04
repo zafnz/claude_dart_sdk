@@ -4,7 +4,7 @@ library;
 import 'dart:async';
 import 'dart:io';
 
-import 'package:claude_sdk/claude_sdk.dart';
+import 'package:claude_agent/claude_agent.dart';
 import 'package:test/test.dart';
 
 /// Integration tests for direct CLI communication.

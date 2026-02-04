@@ -22,7 +22,7 @@ Practical code examples for common SDK usage patterns.
 ### Simple Conversation
 
 ```dart
-import 'package:claude_sdk/claude_sdk.dart';
+import 'package:claude_agent/claude_agent.dart';
 
 Future<void> simpleConversation() async {
   final backend = await BackendFactory.create();
@@ -681,7 +681,7 @@ Future<void> singleRequest() async {
 ```dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:claude_sdk/claude_sdk.dart';
+import 'package:claude_agent/claude_agent.dart';
 
 class ClaudeService extends ChangeNotifier {
   AgentBackend? _backend;

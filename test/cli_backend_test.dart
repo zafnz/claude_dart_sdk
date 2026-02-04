@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:claude_sdk/claude_sdk.dart';
+import 'package:claude_agent/claude_agent.dart';
 import 'package:test/test.dart';
 
 void main() {

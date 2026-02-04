@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:claude_sdk/claude_sdk.dart';
+import 'package:claude_agent/claude_agent.dart';
 import 'package:test/test.dart';
 
 void main() {

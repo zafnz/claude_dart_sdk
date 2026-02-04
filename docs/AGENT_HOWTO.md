@@ -1,13 +1,13 @@
 # Agent Howto
 
-Concise reference for AI agents using the Claude Dart SDK.
+Concise reference for AI agents using the Claude Agent SDK.
 
 ## Quick Reference
 
 ### Create Backend & Session
 
 ```dart
-import 'package:claude_sdk/claude_sdk.dart';
+import 'package:claude_agent/claude_agent.dart';
 
 final backend = await BackendFactory.create();
 final session = await backend.createSession(
@@ -152,9 +152,9 @@ await session.sendWithContent([
 ## File Locations
 
 ```
-claude_dart_sdk/
+claude_agent/
 ├── lib/
-│   ├── claude_sdk.dart           # Main export - import this
+│   ├── claude_agent.dart     # Main export - import this
 │   └── src/
 │       ├── backend_factory.dart  # BackendFactory
 │       ├── backend_interface.dart # AgentBackend, AgentSession

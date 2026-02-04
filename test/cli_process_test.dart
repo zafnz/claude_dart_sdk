@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:claude_sdk/src/cli_process.dart';
-import 'package:claude_sdk/src/types/session_options.dart';
+import 'package:claude_agent/src/cli_process.dart';
+import 'package:claude_agent/src/types/session_options.dart';
 import 'package:test/test.dart';
 
 void main() {

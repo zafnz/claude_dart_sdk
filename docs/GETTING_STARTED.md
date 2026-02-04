@@ -1,4 +1,4 @@
-# Getting Started with Claude Dart SDK
+# Getting Started with Claude Agent SDK
 
 This guide covers installation, configuration, and basic usage of the Claude Dart SDK.
 
@@ -41,8 +41,8 @@ Add the SDK to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  claude_sdk:
-    path: path/to/claude_dart_sdk
+  claude_agent:
+    path: path/to/claude_agent
 ```
 
 Then run:
@@ -60,7 +60,7 @@ flutter pub get
 The backend manages CLI processes and sessions:
 
 ```dart
-import 'package:claude_sdk/claude_sdk.dart';
+import 'package:claude_agent/claude_agent.dart';
 
 void main() async {
   // Create with defaults
@@ -216,7 +216,7 @@ await backend.dispose();
 ## Complete Example
 
 ```dart
-import 'package:claude_sdk/claude_sdk.dart';
+import 'package:claude_agent/claude_agent.dart';
 
 Future<void> main() async {
   // Create backend

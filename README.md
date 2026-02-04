@@ -1,10 +1,10 @@
-# Claude Dart SDK
+# Claude Agent SDK for Dart
 
 A Dart/Flutter SDK for communicating with Claude Code agents via the Claude CLI.
 
 ## Overview
 
-The Claude Dart SDK provides native Dart bindings for interacting with Claude AI agents through the Claude CLI. It supports:
+The Claude Agent SDK provides native Dart bindings for interacting with Claude AI agents through the Claude CLI. It supports:
 
 - **Direct CLI communication** via stdin/stdout JSON streaming
 - **Session management** with persistent conversations
@@ -16,7 +16,7 @@ The Claude Dart SDK provides native Dart bindings for interacting with Claude AI
 ## Quick Start
 
 ```dart
-import 'package:claude_sdk/claude_sdk.dart';
+import 'package:claude_agent/claude_agent.dart';
 
 void main() async {
   // Create a backend
@@ -65,7 +65,7 @@ This is being used [with CC Insights](https://github.com/zafnz/cc-insights/) in 
 └────────────────────────────┬─────────────────────────────┘
                              │
 ┌────────────────────────────▼─────────────────────────────┐
-│                    Claude Dart SDK                       │
+│                   Claude Agent SDK                       │
 │  ┌─────────────────────────────────────────────────────┐ │
 │  │            BackendFactory.create()                  │ │
 │  └────────────────────────┬────────────────────────────┘ │
@@ -158,8 +158,8 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  claude_sdk:
-    path: ../claude_dart_sdk  # Or your path to the SDK
+  claude_agent:
+    path: ../claude_agent  # Or your path to the SDK
 ```
 
 ## License
