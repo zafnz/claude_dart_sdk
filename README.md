@@ -161,7 +161,8 @@ Add to your `pubspec.yaml`:
 ```yaml
 dependencies:
   claude_agent:
-    path: ../claude_agent  # Or your path to the SDK
+    git:
+      url: https://github.com/zafnz/dart_claude_agent_sdk
 ```
 
 ## License
