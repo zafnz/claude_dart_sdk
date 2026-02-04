@@ -53,6 +53,10 @@ void main() async {
 }
 ```
 
+## Production implementation
+
+This is being used [with CC Insights](https://github.com/zafnz/cc-insights/) in production right now. As far as I am aware it supports everything you could need. 
+
 ## Architecture
 
 ```
