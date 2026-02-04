@@ -15,6 +15,8 @@ The Claude Agent SDK provides native Dart bindings for interacting with Claude A
 
 ## Quick Start
 
+Before you can use this SDK you must have `claude` installed on your system, in your PATH, and you must have run it at least once, and run /login to authenticate your account.
+
 ```dart
 import 'package:claude_agent/claude_agent.dart';
 
