@@ -1,0 +1,145 @@
+import 'dart:async';
+
+import 'package:meta/meta.dart';
+
+import 'backend_interface.dart';
+import 'types/callbacks.dart';
+import 'types/content_blocks.dart';
+import 'types/sdk_messages.dart';
+
+/// A test session that is not connected to a real backend.
+///
+/// Test sessions can receive messages via [emitTestMessage] and track
+/// sent messages via [testSentMessages]. They do not communicate with
+/// any backend process.
+///
+/// Example:
+/// ```dart
+/// final session = TestSession(sessionId: 'test-123');
+/// session.emitTestMessage(SDKAssistantMessage(...));
+/// ```
+@visibleForTesting
+class TestSession implements AgentSession {
+  TestSession({
+    required this.sessionId,
+    this.sdkSessionId,
+  });
+
+  /// The session ID (Dart-side).
+  @override
+  final String sessionId;
+
+  /// The SDK session ID (from Claude Code).
+  String? sdkSessionId;
+
+  final _messagesController = StreamController<SDKMessage>.broadcast();
+  final _permissionRequestsController =
+      StreamController<PermissionRequest>.broadcast();
+  final _hookRequestsController =
+      StreamController<HookRequest>.broadcast();
+
+  /// Stream of SDK messages.
+  @override
+  Stream<SDKMessage> get messages => _messagesController.stream;
+
+  /// Stream of permission requests.
+  @override
+  Stream<PermissionRequest> get permissionRequests =>
+      _permissionRequestsController.stream;
+
+  /// Stream of hook requests.
+  @override
+  Stream<HookRequest> get hookRequests => _hookRequestsController.stream;
+
+  bool _disposed = false;
+
+  /// Whether the session is active.
+  @override
+  bool get isActive => !_disposed;
+
+  /// Messages sent via [send].
+  @visibleForTesting
+  final List<String> testSentMessages = [];
+
+  /// Callback invoked when [send] is called.
+  ///
+  /// Use this to trigger mock responses when the session receives a
+  /// message. Returns a Future to support async operations like
+  /// permission requests.
+  @visibleForTesting
+  Future<void> Function(String message)? onTestSend;
+
+  /// Send a follow-up message to the session.
+  @override
+  Future<void> send(String message) async {
+    if (_disposed) return;
+    testSentMessages.add(message);
+    await onTestSend?.call(message);
+  }
+
+  /// Send a message with content blocks (text and images).
+  @override
+  Future<void> sendWithContent(List<ContentBlock> content) async {
+    if (_disposed) return;
+    final textParts =
+        content.whereType<TextBlock>().map((b) => b.text);
+    testSentMessages.add(textParts.join('\n'));
+    await onTestSend?.call(textParts.join('\n'));
+  }
+
+  /// Interrupt the current execution (no-op for test sessions).
+  @override
+  Future<void> interrupt() async {}
+
+  /// Kill the session.
+  @override
+  Future<void> kill() async {
+    if (_disposed) return;
+    _disposed = true;
+    await _messagesController.close();
+    await _permissionRequestsController.close();
+    await _hookRequestsController.close();
+  }
+
+  /// Set the model (no-op for test sessions).
+  @override
+  Future<void> setModel(String? model) async {}
+
+  /// Set the permission mode (no-op for test sessions).
+  @override
+  Future<void> setPermissionMode(String? mode) async {}
+
+  // ═══════════════════════════════════════════════════════════════════
+  // Test Helpers
+  // ═══════════════════════════════════════════════════════════════════
+
+  /// Emits a message to the [messages] stream.
+  @visibleForTesting
+  void emitTestMessage(SDKMessage message) {
+    if (_disposed) return;
+    _messagesController.add(message);
+  }
+
+  /// Emits a permission request to the [permissionRequests] stream.
+  ///
+  /// Returns the completer's future so tests can verify the response.
+  @visibleForTesting
+  Future<PermissionResponse> emitTestPermissionRequest({
+    required String id,
+    required String toolName,
+    required Map<String, dynamic> toolInput,
+    String? toolUseId,
+  }) {
+    final completer = Completer<PermissionResponse>();
+    final request = PermissionRequest(
+      id: id,
+      sessionId: sessionId,
+      toolName: toolName,
+      toolInput: toolInput,
+      toolUseId: toolUseId,
+      completer: completer,
+    );
+    _permissionRequestsController.add(request);
+    return completer.future;
+  }
+}

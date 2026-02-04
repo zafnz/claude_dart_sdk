@@ -9,13 +9,12 @@ import 'types/session_options.dart';
 /// Abstract interface for agent backends.
 ///
 /// This interface defines the contract for backend implementations that
-/// communicate with Claude agents. Both the Node.js backend (ClaudeBackend)
-/// and the direct CLI backend (ClaudeCliBackend) implement this interface.
+/// communicate with Claude agents. The primary implementation is
+/// [ClaudeCliBackend], which spawns Claude CLI processes directly.
 ///
 /// Example:
 /// ```dart
-/// // Use the interface to be backend-agnostic
-/// AgentBackend backend = await BackendFactory.create();
+/// AgentBackend backend = ClaudeCliBackend();
 /// AgentSession session = await backend.createSession(
 ///   prompt: 'Hello!',
 ///   cwd: '/my/project',
